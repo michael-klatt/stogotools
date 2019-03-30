@@ -72,24 +72,39 @@ if dimension == 2:
     
     count = 0
     tmp = np.zeros((2,1))
+    for nx in range(1,max_N):
+        ny = 0
+        tmp[0] = nx*delta_k_0
+        tmp[1] = ny*delta_k_1
+    
+        tmp_k = np.linalg.norm(tmp)
+
+        if tmp_k < max_k and tmp_k > min_k:
+            kx[count] = tmp[0]
+            ky[count] = tmp[1]
+            k[count]  = tmp_k
+
+            nxny[count,0] = nx
+            nxny[count,1] = ny
+
+            count += 1
     for nx in range(-max_N,max_N):
-        for ny in range(0,max_N):
+        for ny in range(1,max_N):
     
-            if not np.all(np.array([nx,ny]) == 0):
-                tmp[0] = nx*delta_k_0
-                tmp[1] = ny*delta_k_1
-            
-                tmp_k = np.linalg.norm(tmp)
-    
-                if tmp_k < max_k and tmp_k > min_k:
-                    kx[count] = tmp[0]
-                    ky[count] = tmp[1]
-                    k[count]  = tmp_k
-    
-                    nxny[count,0] = nx
-                    nxny[count,1] = ny
-    
-                    count += 1
+            tmp[0] = nx*delta_k_0
+            tmp[1] = ny*delta_k_1
+        
+            tmp_k = np.linalg.norm(tmp)
+
+            if tmp_k < max_k and tmp_k > min_k:
+                kx[count] = tmp[0]
+                ky[count] = tmp[1]
+                k[count]  = tmp_k
+
+                nxny[count,0] = nx
+                nxny[count,1] = ny
+
+                count += 1
     
     kx = kx[:count]
     ky = ky[:count]
@@ -133,26 +148,47 @@ elif dimension == 3:
     tmp = np.zeros((3,1))
     for nx in range(-max_N,max_N):
         for ny in range(-max_N,max_N):
-            for nz in range(0,max_N):
+            nz = 0 
+
+            if ny > -nx or (ny == -nx and nx > 0):
+                tmp[0] = nx*delta_k_0
+                tmp[1] = ny*delta_k_1
+                tmp[2] = nz*delta_k_2
+            
+                tmp_k = np.linalg.norm(tmp)
+
+                if tmp_k < max_k and tmp_k > min_k:
+                    kx[count] = tmp[0]
+                    ky[count] = tmp[1]
+                    kz[count] = tmp[2]
+                    k[count]  = tmp_k
+
+                    nxnynz[count,0] = nx
+                    nxnynz[count,1] = ny
+                    nxnynz[count,2] = nz
+
+                    count += 1
+    for nx in range(-max_N,max_N):
+        for ny in range(-max_N,max_N):
+            for nz in range(1,max_N):
     
-                if not np.all(np.array([nx,ny,nz]) == 0):
-                    tmp[0] = nx*delta_k_0
-                    tmp[1] = ny*delta_k_1
-                    tmp[2] = nz*delta_k_2
-                
-                    tmp_k = np.linalg.norm(tmp)
-    
-                    if tmp_k < max_k and tmp_k > min_k:
-                        kx[count] = tmp[0]
-                        ky[count] = tmp[1]
-                        kz[count] = tmp[2]
-                        k[count]  = tmp_k
-    
-                        nxnynz[count,0] = nx
-                        nxnynz[count,1] = ny
-                        nxnynz[count,2] = nz
-    
-                        count += 1
+                tmp[0] = nx*delta_k_0
+                tmp[1] = ny*delta_k_1
+                tmp[2] = nz*delta_k_2
+            
+                tmp_k = np.linalg.norm(tmp)
+
+                if tmp_k < max_k and tmp_k > min_k:
+                    kx[count] = tmp[0]
+                    ky[count] = tmp[1]
+                    kz[count] = tmp[2]
+                    k[count]  = tmp_k
+
+                    nxnynz[count,0] = nx
+                    nxnynz[count,1] = ny
+                    nxnynz[count,2] = nz
+
+                    count += 1
     
     kx = kx[:count]
     ky = ky[:count]
