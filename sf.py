@@ -218,7 +218,10 @@ else:
 
 # Output scattering intensity? 
 if args.sctint:
-    np.savetxt(coords_file[:-4] + ".sctint", unbinned, fmt='%.10f %.10f %i %i %i')
+    if dimension == 2:
+        np.savetxt(coords_file[:-4] + ".sctint", unbinned, fmt='%.10f %.10f %i %i')
+    elif dimension == 3:
+        np.savetxt(coords_file[:-4] + ".sctint", unbinned, fmt='%.10f %.10f %i %i %i')
 
 # Binning to estimate structure factor
 if log_binning:
