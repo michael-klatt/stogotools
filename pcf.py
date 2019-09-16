@@ -62,7 +62,7 @@ def coords2pcf(coords_file, L, N_r_bins):
     g2 = number_of_hits.astype(float)/N_pts
     error /= N_pts
 
-    v_shell = v_ball(dim)*(xedges[1:]**2-xedges[:-1]**2)
+    v_shell = v_ball(dim)*(xedges[1:]**dim-xedges[:-1]**dim)
     
     g2 /= v_shell*N_pts
     error /= v_shell*N_pts
